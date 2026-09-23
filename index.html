@@ -1116,8 +1116,9 @@ function gameCharye(el){
 function gameTV(el){
   S.screen='g';
   const PROG={6:'추석 특선 만화',7:'추석 특선 영화',9:'귀성길 교통 뉴스',11:'추석 장사 씨름 대회'};
+  const GOAL=Object.keys(PROG).length;
   let ch=2,tune=0,found=new Set(),alive=true,drawn=null,fin=false;
-  el.innerHTML=gameHead('tv','다이얼을 돌려 방송 3개를 찾아요','0 / 3')+`<div class="box"><div class="tvwrap">
+  el.innerHTML=gameHead('tv',`다이얼을 돌려 방송 ${GOAL}개를 찾아요`,`0 / ${GOAL}`)+`<div class="box"><div class="tvwrap">
     <div class="tvbox"><div class="tvscreen"><canvas width="320" height="240" id="tvc" aria-hidden="true"></canvas><div class="tvglass"></div></div>
      <div class="tvside"><div class="chnum" id="chn" aria-hidden="true">2</div><div class="dial" id="dial" role="slider" tabindex="0" aria-label="채널 다이얼" aria-valuemin="2" aria-valuemax="13" aria-valuenow="2"><div class="dial-mark"></div></div>
      <div class="dialbtns"><button data-d="-1" aria-label="이전 채널">◀</button><button data-d="1" aria-label="다음 채널">▶</button></div></div></div>
@@ -1148,8 +1149,8 @@ function gameTV(el){
     requestAnimationFrame(loop)};
   requestAnimationFrame(loop);S.cleanups.push(()=>alive=false);
   const hit=c=>{if(found.has(c))return;found.add(c);Sound.play('good');const li=$$('#found li',el)[found.size-1];li.classList.add('got');li.innerHTML=`<span class="n">${c}</span><span>${PROG[c]}</span>`;
-    setInstr(found.size<3?`${PROG[c]} 찾았다!`:'방송 3개를 모두 찾았어요!',`${Math.min(found.size,3)} / 3`);
-    if(found.size>=3&&!fin){fin=true;setTimeout(()=>{if(alive)finish('tv','추석 특선 TV 시청 완료!',['TV'])},1500)}};
+    setInstr(found.size<GOAL?`${PROG[c]} 찾았다!`:`방송 ${GOAL}개를 모두 찾았어요!`,`${Math.min(found.size,GOAL)} / ${GOAL}`);
+    if(found.size>=GOAL&&!fin){fin=true;setTimeout(()=>{if(alive)finish('tv','추석 특선 TV 시청 완료!',['TV'])},1500)}};
   const dial=$('#dial');
   const setCh=n=>{n=((n-2)%12+12)%12+2;if(n===ch)return;ch=n;tune=.28;Sound.play('tv');$('#chn').textContent=ch;dial.style.transform=`rotate(${(ch-2)*30}deg)`;dial.setAttribute('aria-valuenow',ch);if(!PROG[ch])say(`${ch}번, 지지직…`)};
   $$('.dialbtns button',el).forEach(b=>b.onclick=()=>setCh(ch+ +b.dataset.d));
