@@ -8,13 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:'Shilla';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureM-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Shilla';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureB-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
 :root{
   --bg:#F5F1E8; --card:#FBF8F1; --ink:#292723; --navy:#25364A; --accent:#C66A3D; --green:#76816D;
   --muted:rgba(41,39,35,.64); --line:rgba(41,39,35,.14); --soft:#EDE5D4;
   --btn-bg:#25364A; --btn-ink:#FBF8F1; --title:#25364A;
   --shadow:0 1px 0 rgba(41,39,35,.04), 0 14px 32px -22px rgba(37,54,74,.45);
-  --font:'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-  --serif:'Gowun Batang','Nanum Myeongjo','AppleMyungjo',serif;
+  --font:'Shilla','Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --serif:'Shilla','Gowun Batang','Nanum Myeongjo','AppleMyungjo',serif;
   --num:'DM Serif Display',Georgia,'Times New Roman',serif;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -720,7 +722,7 @@ function townSVG(mode='day',extra=''){
   s+=`<rect x="384" y="356" width="150" height="74" fill="${D?'#D9C7AB':'#EDE3CF'}"/><path d="M364 360 C400 346 518 346 554 360 L536 324 C494 312 424 312 382 324Z" fill="${D?'#3F4852':'#4F5963'}"/><path d="M372 340 C420 330 500 330 546 340" stroke="${D?'#586270':'#6A747E'}" stroke-width="3" fill="none"/>
      <rect x="400" y="370" width="54" height="50" fill="${D?'#F2CF8E':'#F7F1E3'}" stroke="#8C7458" stroke-width="2"/><path d="M427 370 v50 M400 386 h54 M400 403 h54 M413 370 v50 M441 370 v50" stroke="#8C7458" stroke-width="1"/><rect x="466" y="374" width="52" height="38" fill="${D?'#F2CF8E':'#F7F1E3'}" stroke="#8C7458" stroke-width="2"/><path d="M492 374 v38 M466 393 h52" stroke="#8C7458" stroke-width="1"/>`;
   // shop
-  s+=`<rect x="760" y="326" width="200" height="104" fill="${D?'#CDBFA8':'#E8DECB'}"/><rect x="772" y="294" width="176" height="32" fill="#25364A"/><text x="860" y="317" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-weight="900" font-size="19" fill="#F3E9D6" letter-spacing="4">행복상회</text>
+  s+=`<rect x="760" y="326" width="200" height="104" fill="${D?'#CDBFA8':'#E8DECB'}"/><rect x="772" y="294" width="176" height="32" fill="#25364A"/><text x="860" y="317" text-anchor="middle" font-family="Shilla, sans-serif" font-weight="900" font-size="19" fill="#F3E9D6" letter-spacing="4">행복상회</text>
      <path d="M752 326 H968 L956 352 H764Z" fill="#C66A3D"/><path d="M784 326 l-3 26 M816 326 l-1 26 M848 326 v26 M880 326 l1 26 M912 326 l3 26 M944 326 l4 26" stroke="#F3E9D6" stroke-width="10"/>
      <rect x="776" y="362" width="70" height="68" fill="${D?'#F3C875':'#A9BCC2'}"/><path d="M811 362 v68" stroke="#F1EDE3" stroke-width="3"/><rect x="862" y="362" width="84" height="40" fill="${D?'#EAC070':'#A9BCC2'}"/>
      <rect x="866" y="408" width="34" height="22" fill="#7A8C63"/><rect x="904" y="408" width="34" height="22" fill="#B8442F"/><g fill="#DDE5E2" opacity=".8"><rect x="870" y="404" width="5" height="8"/><rect x="879" y="404" width="5" height="8"/><rect x="888" y="404" width="5" height="8"/></g>`;
@@ -747,7 +749,7 @@ function houseSVG(extra=''){
   s+=`<path d="M300 44 h36 q-6 90 4 172 h-36Z" fill="#E7D6B5"/><path d="M494 44 h36 v172 h-36 q10 -80 0 -172Z" fill="#E7D6B5"/><rect x="292" y="38" width="248" height="8" rx="3" fill="#8C7458"/>`;
   // clock & calendar
   s+=`<circle cx="236" cy="96" r="28" fill="#FBF8F1" stroke="#7A5638" stroke-width="5"/><path d="M236 96 V80 M236 96 L247 102" stroke="#292723" stroke-width="3" stroke-linecap="round"/>`;
-  s+=`<rect x="556" y="34" width="76" height="98" fill="#FBF8F1" stroke="#D8CDB6"/><rect x="556" y="34" width="76" height="20" fill="#C66A3D"/><text x="594" y="49" text-anchor="middle" font-size="12" font-weight="700" fill="#FBF8F1" font-family="Noto Sans KR, sans-serif">1996 · 9</text><text x="594" y="102" text-anchor="middle" font-size="42" fill="#B8442F" font-family="DM Serif Display, Georgia, serif">27</text><text x="594" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#B8442F" font-family="Noto Sans KR, sans-serif">추석</text><circle cx="594" cy="30" r="4" fill="#7A5638"/>`;
+  s+=`<rect x="556" y="34" width="76" height="98" fill="#FBF8F1" stroke="#D8CDB6"/><rect x="556" y="34" width="76" height="20" fill="#C66A3D"/><text x="594" y="49" text-anchor="middle" font-size="12" font-weight="700" fill="#FBF8F1" font-family="Shilla, sans-serif">1996 · 9</text><text x="594" y="102" text-anchor="middle" font-size="42" fill="#B8442F" font-family="DM Serif Display, Georgia, serif">27</text><text x="594" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#B8442F" font-family="Shilla, sans-serif">추석</text><circle cx="594" cy="30" r="4" fill="#7A5638"/>`;
   // folding screen & charye table
   s+=`<g>${[0,1,2,3,4,5].map(i=>`<rect x="${40+i*42}" y="92" width="40" height="214" fill="#F1E7D1" stroke="#7A5638" stroke-width="4"/>`).join('')}
       <path d="M52 250 l22 -40 18 28 14 -22 24 34 18 -26 26 40 16 -20 30 30 18 -24 22 30" stroke="#98A58A" stroke-width="3" fill="none" opacity=".7"/><circle cx="220" cy="140" r="14" fill="#E4C57F" opacity=".55"/></g>`;
@@ -775,7 +777,7 @@ function carSVG(extra=''){
   const car=(x,y,w,col)=>`<g transform="translate(${x} ${y})"><rect x="0" y="0" width="${w}" height="${w*.55}" rx="${w*.08}" fill="${col}"/><rect x="${w*.14}" y="${-w*.22}" width="${w*.72}" height="${w*.26}" rx="${w*.06}" fill="${col}"/><rect x="${w*.2}" y="${-w*.17}" width="${w*.6}" height="${w*.17}" rx="3" fill="#4B5560"/><rect x="${w*.06}" y="${w*.16}" width="${w*.18}" height="${w*.1}" fill="#C8412D"/><rect x="${w*.76}" y="${w*.16}" width="${w*.18}" height="${w*.1}" fill="#C8412D"/><rect x="${w*.34}" y="${w*.3}" width="${w*.32}" height="${w*.1}" fill="#F3EEDD"/></g>`;
   s+=car(420,196,44,'#E8E2D4')+car(474,204,48,'#25364A')+car(374,214,54,'#8C3B2C')+car(512,236,70,'#D8CDB4')+car(300,250,78,'#6D7C62')+car(600,262,86,'#3E4B55');
   // rest-area sign
-  s+=`<rect x="582" y="118" width="6" height="60" fill="#8C8173"/><rect x="706" y="118" width="6" height="60" fill="#8C8173"/><rect x="566" y="66" width="160" height="58" rx="5" fill="#3E6B52"/><rect x="571" y="71" width="150" height="48" rx="3" fill="none" stroke="#F4EFE2" stroke-width="1.5"/><text x="646" y="103" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="20" fill="#F4EFE2">휴게소 2km</text>`;
+  s+=`<rect x="582" y="118" width="6" height="60" fill="#8C8173"/><rect x="706" y="118" width="6" height="60" fill="#8C8173"/><rect x="566" y="66" width="160" height="58" rx="5" fill="#3E6B52"/><rect x="571" y="71" width="150" height="48" rx="3" fill="none" stroke="#F4EFE2" stroke-width="1.5"/><text x="646" y="103" text-anchor="middle" font-family="Shilla, sans-serif" font-weight="700" font-size="20" fill="#F4EFE2">휴게소 2km</text>`;
   // side window scenery (animated)
   s+=`<g clip-path="url(#side)"><rect width="140" height="330" fill="#E6E4D8"/><g class="sidepan">${[0,1].map(k=>`<g transform="translate(${k*300} 0)"><path d="M0 170 C60 150 120 160 180 150 C230 144 270 156 300 150 V330 H0Z" fill="#B7BEA2"/><rect y="220" width="300" height="110" fill="#D6BC62"/><path d="M0 240 h300 M0 262 h300 M0 286 h300" stroke="#C4A84E" stroke-width="2"/><circle cx="60" cy="196" r="22" fill="#76816D"/><circle cx="210" cy="190" r="26" fill="#6A765F"/><rect x="130" y="130" width="5" height="100" fill="#7A6652"/></g>`).join('')}</g></g>`;
   // interior (evenodd holes)
@@ -793,7 +795,7 @@ function carSVG(extra=''){
 function restSVG(){
   let s=`<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="고속도로 휴게소 풍경"><rect width="800" height="500" fill="#E9DDC6"/>`;
   s+=`<path d="M0 140 C140 100 260 120 380 104 C520 86 640 120 800 100 V300 H0Z" fill="#BFC2A5"/>`;
-  s+=`<rect x="80" y="150" width="640" height="190" fill="#EDE3CF"/><rect x="62" y="130" width="676" height="26" fill="#6E5A48"/><rect x="310" y="92" width="180" height="40" rx="4" fill="#25364A"/><text x="400" y="120" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-weight="900" font-size="22" letter-spacing="6" fill="#F3E9D6">휴 게 소</text>`;
+  s+=`<rect x="80" y="150" width="640" height="190" fill="#EDE3CF"/><rect x="62" y="130" width="676" height="26" fill="#6E5A48"/><rect x="310" y="92" width="180" height="40" rx="4" fill="#25364A"/><text x="400" y="120" text-anchor="middle" font-family="Shilla, sans-serif" font-weight="900" font-size="22" letter-spacing="6" fill="#F3E9D6">휴 게 소</text>`;
   s+=`<rect x="340" y="190" width="120" height="150" fill="#A9BCC2"/><path d="M400 190 v150" stroke="#F1EDE3" stroke-width="4"/><rect x="100" y="176" width="200" height="70" fill="#A9BCC2"/><path d="M150 176 v70 M200 176 v70 M250 176 v70" stroke="#F1EDE3" stroke-width="3"/><rect x="500" y="176" width="200" height="70" fill="#A9BCC2"/>`;
   // hodu stall
   s+=`<path d="M104 250 H290 L280 276 H114Z" fill="#C66A3D"/><path d="M130 250 l-3 26 M160 250 l-1 26 M190 250 v26 M220 250 l1 26 M250 250 l2 26" stroke="#F3E9D6" stroke-width="9"/><rect x="118" y="276" width="160" height="64" fill="#D8C7A6"/><rect x="118" y="276" width="160" height="10" fill="#B9A682"/>`;
@@ -954,7 +956,7 @@ function fusokSVG(forCanvas=false){
   s+=`<path d="M100 520 A400 360 0 0 1 900 520" fill="none" stroke="#C66A3D" stroke-width="2.5" stroke-dasharray="3 10" stroke-linecap="round" opacity=".7"/>`;
   s+=`<g transform="translate(${500-70*1.45} ${590-200*1.45}) scale(1.45)">${charInner(S.char)}</g>`;
   pts.forEach((p,i)=>{const a=ACTS[S.log[i].id];s+=`<g class="ico" style="animation-delay:${.2+i*.14}s"><circle cx="${p.x}" cy="${p.y}" r="46" fill="#FBF6EA" stroke="#D8C8A6" stroke-width="1.5"/><g transform="translate(${p.x-36} ${p.y-38}) scale(.9)">${I[a.icon]}</g>`;
-    if(!forCanvas)s+=`<text x="${p.x}" y="${p.y+68}" text-anchor="middle" font-family="DM Serif Display, Georgia, serif" font-size="17" fill="#C66A3D">${a.time}</text><text x="${p.x}" y="${p.y+90}" text-anchor="middle" font-family="Gowun Batang, serif" font-weight="700" font-size="17" fill="#292723">${a.label}</text>`;
+    if(!forCanvas)s+=`<text x="${p.x}" y="${p.y+68}" text-anchor="middle" font-family="DM Serif Display, Georgia, serif" font-size="17" fill="#C66A3D">${a.time}</text><text x="${p.x}" y="${p.y+90}" text-anchor="middle" font-family="Shilla, serif" font-weight="700" font-size="17" fill="#292723">${a.label}</text>`;
     s+=`</g>`});
   return s+`</svg>`;
 }
@@ -1060,7 +1062,7 @@ function gameSongpyeon(el){
   const palm=$('#palm'),dough=$('#dough'),fill=$('#fill');
   const paintBowl=()=>$$('.dcol',el).forEach(e=>e.setAttribute('fill',COLS[color][1]));
   const draw=()=>{const c=COLS[color];let s='';
-    if(step===0)s=`<text x="100" y="106" text-anchor="middle" font-size="16" fill="#8C7458" font-family="Noto Sans KR, sans-serif">여기에 놓아요</text>`;
+    if(step===0)s=`<text x="100" y="106" text-anchor="middle" font-size="16" fill="#8C7458" font-family="Shilla, sans-serif">여기에 놓아요</text>`;
     else{const k=1-2*fold;
       s+=`<ellipse cx="100" cy="${106+fold*-4}" rx="${64-fold*2}" ry="10" fill="#000" opacity=".08"/><path d="M40 100 A60 60 0 0 1 160 100 Z" fill="${c[1]}" stroke="${c[2]}" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
       if(step>=2)s+=`<g>${Array.from({length:30},(_,i)=>{const a=i*2.4,r=Math.sqrt(i/30)*22;return `<ellipse cx="${(100+Math.cos(a)*r*1.3).toFixed(1)}" cy="${(80+Math.sin(a)*r*.7).toFixed(1)}" rx="3" ry="1.8" transform="rotate(${(i*47)%180} ${(100+Math.cos(a)*r*1.3).toFixed(1)} ${(80+Math.sin(a)*r*.7).toFixed(1)})" fill="${i%3?'#8C6A3F':'#5A4630'}"/>`}).join('')}</g>`;
@@ -1125,7 +1127,7 @@ function gameTV(el){
     <ul class="found" id="found">${Object.keys(PROG).map(()=>`<li><span class="n">?</span><span>아직 못 찾은 방송</span></li>`).join('')}</ul></div></div>`;
   wireBack(el,'tv');
   const cv=$('#tvc'),x=cv.getContext('2d'),nc=document.createElement('canvas');nc.width=80;nc.height=60;const nx=nc.getContext('2d');
-  const cap=(t,c)=>{x.fillStyle='rgba(0,0,0,.55)';x.fillRect(0,200,320,40);x.fillStyle='#fff';x.font='700 17px "Noto Sans KR", sans-serif';x.textAlign='left';x.fillText(t,14,227);x.fillStyle='rgba(255,255,255,.85)';x.font='20px "DM Serif Display", Georgia, serif';x.textAlign='right';x.fillText(c,306,28);x.textAlign='left'};
+  const cap=(t,c)=>{x.fillStyle='rgba(0,0,0,.55)';x.fillRect(0,200,320,40);x.fillStyle='#fff';x.font='700 17px "Shilla", sans-serif';x.textAlign='left';x.fillText(t,14,227);x.fillStyle='rgba(255,255,255,.85)';x.font='20px "DM Serif Display", Georgia, serif';x.textAlign='right';x.fillText(c,306,28);x.textAlign='left'};
   const art={
    6(){x.fillStyle='#9CC7DA';x.fillRect(0,0,320,240);x.fillStyle='#A9C98F';x.fillRect(0,168,320,72);x.fillStyle='#F4C95D';x.beginPath();x.arc(262,58,26,0,7);x.fill();
      x.fillStyle='#AFC08F';x.strokeStyle='#7E9160';x.lineWidth=3;x.beginPath();x.arc(150,168,62,Math.PI,0);x.closePath();x.fill();x.stroke();
@@ -1136,7 +1138,7 @@ function gameTV(el){
      x.beginPath();x.arc(126,142,9,0,7);x.arc(150,146,8,0,7);x.fill();x.fillRect(118,150,16,26);x.fillRect(143,152,14,24);x.fillStyle='#000';x.fillRect(0,0,320,22);x.fillRect(0,190,320,50)},
    9(){x.fillStyle='#1F3550';x.fillRect(0,0,320,240);x.fillStyle='#2A4668';x.fillRect(0,150,320,50);x.fillStyle='#E6C3A5';x.beginPath();x.arc(84,96,22,0,7);x.fill();x.fillStyle='#231C18';x.beginPath();x.arc(84,88,22,Math.PI,0);x.fill();
      x.fillStyle='#2E3B4E';x.beginPath();x.moveTo(44,160);x.quadraticCurveTo(84,112,124,160);x.fill();x.fillStyle='#EDE3CF';x.fillRect(164,40,134,100);x.strokeStyle='#B8442F';x.lineWidth=5;x.beginPath();x.moveTo(196,56);x.bezierCurveTo(220,80,230,100,270,126);x.stroke();
-     x.fillStyle='#25364A';x.beginPath();x.arc(196,56,5,0,7);x.arc(270,126,5,0,7);x.fill();x.fillStyle='#F3C875';x.fillRect(0,180,320,20);x.fillStyle='#1F3550';x.font='700 12px "Noto Sans KR", sans-serif';x.fillText('귀성 차량 행렬 · 서울→부산 9시간',10,194)},
+     x.fillStyle='#25364A';x.beginPath();x.arc(196,56,5,0,7);x.arc(270,126,5,0,7);x.fill();x.fillStyle='#F3C875';x.fillRect(0,180,320,20);x.fillStyle='#1F3550';x.font='700 12px "Shilla", sans-serif';x.fillText('귀성 차량 행렬 · 서울→부산 9시간',10,194)},
    11(){x.fillStyle='#3E6B52';x.fillRect(0,0,320,240);x.fillStyle='#E3C98E';x.beginPath();x.ellipse(160,176,150,46,0,0,7);x.fill();
      const man=(cx,dir,col)=>{x.fillStyle='#E6C3A5';x.beginPath();x.ellipse(cx,138,24,34,dir*.5,0,7);x.fill();x.beginPath();x.arc(cx+dir*18,104,12,0,7);x.fill();x.fillStyle=col;x.fillRect(cx-22,150,44,8);x.fillStyle='#E6C3A5';x.fillRect(cx-16,160,10,26);x.fillRect(cx+6,160,10,26)};
      man(138,1,'#B5452F');man(182,-1,'#3F6F8F')}};
@@ -1171,7 +1173,7 @@ function gameWindow(el){
    bus:{n:'고속버스',w:34,b:3,svg:`<svg viewBox="0 0 300 110"><rect x="4" y="8" width="292" height="84" rx="14" fill="#F1EDE3"/><rect x="4" y="58" width="292" height="12" fill="#3F6F8F"/><g fill="#6F8A9A">${[0,1,2,3,4,5].map(i=>`<rect x="${18+i*44}" y="20" width="36" height="30" rx="4"/>`).join('')}</g><rect x="268" y="20" width="22" height="46" rx="4" fill="#4E6A7A"/><circle cx="60" cy="94" r="15" fill="#292723"/><circle cx="240" cy="94" r="15" fill="#292723"/></svg>`},
    truck:{n:'짐 가득 실은 트럭',w:24,b:4,svg:`<svg viewBox="0 0 200 120"><rect x="130" y="40" width="62" height="56" rx="8" fill="#3F6F8F"/><rect x="146" y="48" width="40" height="22" rx="3" fill="#BFD0D8"/><rect x="6" y="70" width="128" height="26" fill="#5A7393"/><ellipse cx="46" cy="52" rx="38" ry="24" fill="#C66A3D"/><path d="M40 30 q6 -14 14 0" fill="#B35A30"/><rect x="82" y="38" width="44" height="34" fill="#D9C7A2"/><rect x="92" y="18" width="30" height="22" fill="#76816D"/><path d="M10 60 L126 50 M10 72 L126 64" stroke="#EDE6D6" stroke-width="2"/><circle cx="40" cy="100" r="14" fill="#292723"/><circle cx="162" cy="100" r="14" fill="#292723"/></svg>`},
    scare:{n:'허수아비',w:9,b:34,svg:`<svg viewBox="0 0 80 150"><rect x="37" y="30" width="6" height="120" fill="#7A6652"/><rect x="6" y="56" width="68" height="6" fill="#7A6652"/><circle cx="40" cy="36" r="14" fill="#EFE3C4"/><path d="M16 30 L40 8 L64 30Z" fill="#D9B04C"/><path d="M20 60 h40 l-4 40 h-32Z" fill="#B55A3A"/><circle cx="35" cy="36" r="2" fill="#292723"/><circle cx="45" cy="36" r="2" fill="#292723"/><path d="M34 42 q6 4 12 0" stroke="#292723" fill="none"/></svg>`},
-   banner:{n:'귀성 현수막',w:36,b:52,svg:`<svg viewBox="0 0 320 90"><rect x="6" y="0" width="6" height="90" fill="#7A6652"/><rect x="308" y="0" width="6" height="90" fill="#7A6652"/><rect x="12" y="10" width="296" height="44" fill="#F3EEDD"/><text x="160" y="40" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-weight="900" font-size="21" fill="#B8442F">고향 가는 길, 안전운전!</text></svg>`}};
+   banner:{n:'귀성 현수막',w:36,b:52,svg:`<svg viewBox="0 0 320 90"><rect x="6" y="0" width="6" height="90" fill="#7A6652"/><rect x="308" y="0" width="6" height="90" fill="#7A6652"/><rect x="12" y="10" width="296" height="44" fill="#F3EEDD"/><text x="160" y="40" text-anchor="middle" font-family="Shilla, sans-serif" font-weight="900" font-size="21" fill="#B8442F">고향 가는 길, 안전운전!</text></svg>`}};
   const keys=Object.keys(OB);const got=new Set();let alive=true;
   el.innerHTML=gameHead('window','창밖으로 지나가는 것들을 눌러요','0 / 4')+`<div class="box"><div class="drive" id="drive">
     <div class="layer l1">${L1+L1}</div><div class="layer l2">${L2+L2}</div><div class="layer l3">${L3+L3}</div><div class="spawn" id="spawn"></div>
@@ -1312,7 +1314,7 @@ function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onloa
 function wrap(x,text,max){const words=text.split(' ');const out=[];let line='';words.forEach(w=>{const t=line?line+' '+w:w;if(x.measureText(t).width>max&&line){out.push(line);line=w}else line=t});if(line)out.push(line);return out}
 function rrect(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath()}
 async function renderCard(){
-  const SANS='"Noto Sans KR", sans-serif',SERIF='"Gowun Batang", serif',NUM='"DM Serif Display", Georgia, serif';
+  const SANS='"Shilla", sans-serif',SERIF='"Shilla", serif',NUM='"DM Serif Display", Georgia, serif';
   const lines=sentenceLines();const txt=lines.join('')+S.log.map(l=>ACTS[l.id].label).join('')+'나의 1996년 추석 하루내가선택한그때그추석30년전으로떠나는추석하루살이';
   try{await Promise.all([document.fonts.load(`900 64px ${SANS}`,txt),document.fonts.load(`700 30px ${SANS}`,txt),document.fonts.load(`500 28px ${SANS}`,txt),document.fonts.load(`400 30px ${SERIF}`,txt),document.fonts.load(`700 22px ${SERIF}`,txt),document.fonts.load(`30px ${NUM}`,'0123456789:, SEPTMBR')])}catch(e){}
   const W=1080,P=64,artW=W-P*2,artH=Math.round(artW*.64),sx=artW/1000;
