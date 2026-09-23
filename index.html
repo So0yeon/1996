@@ -265,7 +265,8 @@ main#stage{max-width:1180px;margin:0 auto;padding:clamp(18px,3.4vw,44px) clamp(1
 .spawn{position:absolute;inset:0}
 .obj{position:absolute;appearance:none;border:0;background:none;padding:0;cursor:pointer;will-change:transform}
 .obj svg{display:block;width:100%;height:auto}
-.obj.got{pointer-events:none;animation:gotit .5s forwards}
+.obj.got{pointer-events:none}
+.obj.got svg{animation:gotit .5s forwards}
 @keyframes gotit{to{opacity:0;transform:scale(1.15)}}
 .frame{position:absolute;inset:0;pointer-events:none}
 .checks{display:flex;gap:8px;flex-wrap:wrap;padding:14px 16px;border-top:1px solid var(--line)}
@@ -553,10 +554,11 @@ function charInner(c){
   if(F===3)s+=`<path d="M53 71 Q58 65 63 71" stroke="${ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="82" cy="70" r="3" fill="${ink}"/><path d="M63 81 Q70 87 77 81" stroke="${ink}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
   // hair front
   const H=c.hair;
-  if(H===0)s+=`<path d="M40 62 C38 30 102 30 100 62 C96 52 88 47 79 50 C72 43 62 45 58 51 C52 48 44 53 40 62Z" fill="${hc}"/>`;
-  if(H===1||H===2)s+=`<path d="M39 64 C35 28 105 28 101 64 C99 52 94 46 86 46 C78 40 62 41 56 45 C48 44 42 52 39 64Z" fill="${hc}"/>`;
-  if(H===2)s+=`<path d="M70 33 V45" stroke="#000" stroke-opacity=".25" stroke-width="1.5"/>`;
-  if(H===3)s+=`<path d="M37 60 C37 23 103 23 103 60Z" fill="${hc}"/><rect x="37" y="56" width="7" height="16" rx="2" fill="${hc}"/><rect x="96" y="56" width="7" height="16" rx="2" fill="${hc}"/>`;
+  // 앞머리: 정수리(y≈28)까지 덮고 이마에 앞머리가 내려오도록
+  if(H===0)s+=`<path d="M36 72 A34 44 0 0 1 104 72 L101 72 Q100 58 91 55 Q81 58 70 56 Q59 58 49 55 Q40 58 39 72Z" fill="${hc}"/>`;
+  if(H===1)s+=`<path d="M37 66 A33 38 0 0 1 103 66 Q101 55 94 50 Q89 56 81 52 Q73 57 65 52 Q57 58 49 55 Q42 58 37 66Z" fill="${hc}"/>`;
+  if(H===2)s+=`<path d="M37 68 A33 40 0 0 1 103 68 Q101 57 92 54 Q80 56 71 44 Q62 56 50 54 Q40 57 37 68Z" fill="${hc}"/><path d="M71 29 V44" stroke="#000" stroke-opacity=".25" stroke-width="1.5"/>`;
+  if(H===3)s+=`<path d="M36 72 V60 A34 33 0 0 1 104 60 V72 H97 V59 Q70 55 43 59 V72Z" fill="${hc}"/>`;
   // accessories
   if(c.acc===1)s+=`<path d="M40 54 C43 28 97 28 100 54" stroke="#C66A3D" stroke-width="5" fill="none" stroke-linecap="round"/>`;
   if(c.acc===2)s+=`<path d="M37 52 C37 20 103 20 103 52Z" fill="#25364A"/><path d="M62 50 Q92 44 118 51 Q114 58 100 57 L62 55Z" fill="#1C2A3A"/><circle cx="70" cy="27" r="2.5" fill="#1C2A3A"/><path d="M54 40 h14" stroke="#C66A3D" stroke-width="3"/>`;
@@ -869,7 +871,7 @@ function main96(el){
 }
 function creator(el){
   S.screen='creator';setTop(true,null);let tab=0;
-  el.innerHTML=`<div class="head"><div><div class="kicker">1996 · 나</div><h1 class="h1">그때의 나는<br>어떤 모습이었을까?</h1></div></div>
+  el.innerHTML=prevBtn('이전으로')+`<div class="head"><div><div class="kicker">1996 · 나</div><h1 class="h1">그때의 나는<br>어떤 모습이었을까?</h1></div></div>
   <div class="creator"><div class="preview"><div class="pv" id="pv"></div><p class="desc" id="desc"></p>
     <div class="row" style="justify-content:center;margin-top:12px"><button class="btn small ghost" id="rand">🎲 아무거나</button></div></div>
     <div><div class="tabs" role="tablist" aria-label="꾸미기 항목">${OPTS.map((o,i)=>`<button class="tab" role="tab" data-i="${i}" aria-selected="${i===0}">${o.label}</button>`).join('')}</div>
@@ -883,43 +885,53 @@ function creator(el){
   $('#opts').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;S.char[OPTS[tab].key]=+b.dataset.v;Sound.play('click');paint('nudge');opts();$$('.opt',el)[+b.dataset.v].focus()});
   $('#rand').onclick=()=>{OPTS.forEach(o=>S.char[o.key]=Math.floor(Math.random()*o.names.length));Sound.play('paper');paint('appear');opts()};
   $('#doneChar').onclick=()=>{Sound.play('door');go(hubMorning)};
+  wirePrev(el,main96);
 }
 
 /* hub scaffolding */
 function choiceBtns(ids){return `<div class="choices">${ids.map(id=>{const a=ACTS[id];const d=done(id);return `<button class="choice ${d?'done':''}" data-go="${id}"><span class="ic">${icon(a.icon)}</span><span><b>${a.btn}</b><small>${a.sub}</small></span><span class="go" aria-hidden="true">${d?'✓ 했어요':'→'}</span></button>`}).join('')}</div>`}
-function wireGo(el){el.querySelectorAll('[data-go]').forEach(b=>onActivate(b,()=>{Sound.play('click');const id=b.dataset.go;if(id==='moon')go(night);else go(GAMES[id])}))}
+const MAIN_ACTS=Object.keys(ACTS).filter(k=>k!=='moon');
+function remaining(){return MAIN_ACTS.filter(k=>!done(k))}
+function prevBtn(label){return `<button class="back" id="prevBtn">← ${label}</button>`}
+function wirePrev(el,fn){const b=$('#prevBtn',el);if(b)b.onclick=()=>{Sound.play('click');go(fn)}}
+function wireGo(el){el.querySelectorAll('[data-go]').forEach(b=>onActivate(b,()=>{const id=b.dataset.go;
+  if(id==='moon'){const left=remaining();if(left.length){Sound.play('soft');toast(`아직 ${left.length}개의 활동이 남았어요`);return}Sound.play('click');go(night)}
+  else{Sound.play('click');go(GAMES[id])}}))}
 function hubMorning(el){
   S.screen='morning';setTop(true,'morning');const ids=['songpyeon','charye','tv'];const any=ids.some(done);
-  el.innerHTML=`<div class="head"><div><div class="kicker">09:00</div><h1 class="h1">추석 아침이에요.</h1><p class="lead">집 안이 벌써 고소한 냄새로 가득해요. 무엇부터 할까요?</p></div></div>
+  el.innerHTML=prevBtn('나 꾸미기로')+`<div class="head"><div><div class="kicker">09:00</div><h1 class="h1">추석 아침이에요.</h1><p class="lead">집 안이 벌써 고소한 냄새로 가득해요. 무엇부터 할까요?</p></div></div>
    <div class="scene">${houseSVG(hot(420,372,'songpyeon','송편 만들기')+hot(168,262,'charye','차례상 차리기')+hot(674,190,'tv','TV 켜기'))}</div>
    ${choiceBtns(ids)}
    <div class="nextbar"><p>${any?'다 했으면 고향으로 출발해요.':'하나를 골라 해보면 다음으로 갈 수 있어요.'}</p><button class="btn" id="next" ${any?'':'disabled'}>귀성길 떠나기 <span class="ar">→</span></button></div>`;
-  wireGo(el);$('#next').onclick=()=>{Sound.play('door');go(hubNoon)};
+  wireGo(el);wirePrev(el,creator);$('#next').onclick=()=>{Sound.play('door');go(hubNoon)};
 }
 function hubNoon(el){
   S.screen='noon';setTop(true,'noon');const ids=['window','talk','rest'];const any=ids.some(done);
-  el.innerHTML=`<div class="head"><div><div class="kicker">12:30</div><h1 class="h1">고향으로 출발!</h1><p class="lead">라디오에서는 고속도로 교통 소식이 흘러나와요.</p></div></div>
+  el.innerHTML=prevBtn('아침으로')+`<div class="head"><div><div class="kicker">12:30</div><h1 class="h1">고향으로 출발!</h1><p class="lead">라디오에서는 고속도로 교통 소식이 흘러나와요.</p></div></div>
    <div class="scene" style="background:#3F3B37">${carSVG(hot(76,190,'window','창밖 보기',{tagDy:-52})+hot(410,238,'talk','가족과 이야기')+hot(646,150,'rest','휴게소 들르기',{tagDy:-104}))}
     <div class="narr">1996년 추석.<br>전국의 가족들이 고향으로 이동하고 있습니다.</div></div>
    ${choiceBtns(ids)}
    <div class="nextbar"><p>${any?'드디어 고향이 가까워졌어요.':'차 안에서 할 일을 하나 골라보세요.'}</p><button class="btn" id="next" ${any?'':'disabled'}>고향에 도착하기 <span class="ar">→</span></button></div>`;
-  wireGo(el);$('#next').onclick=()=>{Sound.play('door');go(hubEvening)};
+  wireGo(el);wirePrev(el,hubMorning);$('#next').onclick=()=>{Sound.play('door');go(hubEvening)};
 }
 function hubEvening(el){
   S.screen='evening';setTop(true,'evening');const ids=['alley','shop','house','field'];
   const pins=hot(456,372,'house','할머니 집',{emoji:'🏠',r:34,tagDy:56})+hot(260,500,'alley','골목',{emoji:'🛝',r:34,tagDy:56})+hot(860,382,'shop','동네 가게',{emoji:'🏪',r:34,tagDy:56})+hot(1060,470,'field','공터',{emoji:'🌳',r:34,tagDy:56})+hot(1010,105,'moon','달이 보이는 곳',{emoji:'🌕',r:34,tagDy:64});
-  el.innerHTML=`<div class="head"><div><div class="kicker">17:00</div><h1 class="h1">고향에 도착했어요.</h1><p class="lead">해가 뉘엿뉘엿 지는 동네. 어디로 가볼까요?</p></div></div>
+  const left=remaining();
+  const msg=left.length?`달을 보려면 모든 활동을 마쳐야 해요. 남은 활동 ${left.length}개: ${left.map(k=>ACTS[k].label).join(', ')}`:'모든 활동을 마쳤어요! 달이 떠오르고 있어요.';
+  el.innerHTML=prevBtn('귀성길로')+`<div class="head"><div><div class="kicker">17:00</div><h1 class="h1">고향에 도착했어요.</h1><p class="lead">해가 뉘엿뉘엿 지는 동네. 어디로 가볼까요?</p></div></div>
    <div class="scene">${townSVG('dusk',pins)}</div>
    ${choiceBtns(ids)}
-   <div class="nextbar"><p>달이 떠오르고 있어요. 준비되면 달 보러 가요.</p><button class="btn accent" id="next">🌕 달이 보이는 곳으로 <span class="ar">→</span></button></div>`;
-  wireGo(el);$('#next').onclick=()=>go(night);
+   <div class="nextbar"><p>${msg}</p><button class="btn accent" id="next" ${left.length?'disabled':''}>🌕 달이 보이는 곳으로 <span class="ar">→</span></button></div>`;
+  wireGo(el);wirePrev(el,hubNoon);$('#next').onclick=()=>{if(!remaining().length)go(night)};
 }
 const HUB={morning:hubMorning,noon:hubNoon,evening:hubEvening};
 
 function night(el){
   S.screen='night';setTop(true,'night');Sound.loop('crickets');Sound.play('wind');
-  el.innerHTML=`<div class="kicker" style="margin-bottom:10px">20:30</div><div class="night"><div class="night-wrap">${nightSVG()}</div>
+  el.innerHTML=prevBtn('저녁으로')+`<div class="kicker" style="margin-bottom:10px">20:30</div><div class="night"><div class="night-wrap">${nightSVG()}</div>
    <div class="q"><h2>오늘 하루,<br>어땠나요?</h2><div class="row"><button class="feel" data-f="0">재미있었다</button><button class="feel" data-f="1">신기했다</button><button class="feel" data-f="2">조금 불편했다</button></div></div></div>`;
+  wirePrev(el,hubEvening);
   $$('.feel',el).forEach(b=>b.onclick=()=>{S.feeling=+b.dataset.f;logAct('moon');addItems(['보름달']);Sound.play('good');go(result)});
 }
 
@@ -948,11 +960,12 @@ function fusokSVG(forCanvas=false){
 }
 function result(el){
   S.screen='result';setTop(true,'all');
-  el.innerHTML=`<div class="result-hero"><div class="kicker">SEPTEMBER 27, 1996</div><h1 class="h1">나의 1996년 추석</h1><p class="lead">내가 보낸 하루가 한 장의 풍속도가 되었어요.</p></div>
+  el.innerHTML=prevBtn('달맞이로')+`<div class="result-hero"><div class="kicker">SEPTEMBER 27, 1996</div><h1 class="h1">나의 1996년 추석</h1><p class="lead">내가 보낸 하루가 한 장의 풍속도가 되었어요.</p></div>
    <div class="fusok">${fusokSVG()}</div>
    <div class="card2"><div><h3>나의 추석 하루</h3><ol class="tline">${S.log.map(l=>`<li><time>${ACTS[l.id].time}</time><span>${ACTS[l.id].label}</span></li>`).join('')}</ol></div>
    <div class="sentence"><h3>내가 선택한 추석</h3><p>${sentenceLines().map(esc).join('<br>')}</p></div></div>
    <div class="actions"><button class="btn accent" id="post">🏘️ 우리 반 풍속도에 붙이기</button><button class="btn ghost" id="save">🖼️ 카드 이미지로 저장</button><button class="btn ghost" id="cmp">30년 전과 지금 비교하기 <span class="ar">→</span></button></div>`;
+  wirePrev(el,night);
   $('#post').onclick=()=>{postToClass();go(gallery,true)};
   $('#save').onclick=()=>saveCard($('#save'));
   $('#cmp').onclick=()=>go(compare);
@@ -1166,8 +1179,8 @@ function gameWindow(el){
   wireBack(el,'window');S.cleanups.push(()=>alive=false);
   const drive=$('#drive'),sp=$('#spawn');let cur=null,qi=0,pause=.4,last=performance.now();
   const spawn=()=>{const left=keys.filter(k=>!got.has(k));if(!left.length)return;const k=left[qi++%left.length];const o=OB[k];
-    const b=document.createElement('button');b.className='obj';b.style.width=o.w+'%';b.style.bottom=o.b+'%';b.style.left='0';b.setAttribute('aria-label',o.n);b.innerHTML=o.svg;sp.appendChild(b);
-    cur={k,b,x:drive.clientWidth+10,w:b.offsetWidth};
+    const b=document.createElement('button');b.className='obj';b.style.width=o.w+'%';b.style.bottom=o.b+'%';b.style.left='0';const x0=drive.clientWidth+10;b.style.transform=`translateX(${x0}px)`;b.setAttribute('aria-label',o.n);b.innerHTML=o.svg;sp.appendChild(b);
+    cur={k,b,x:x0,w:b.offsetWidth};
     b.onclick=()=>{if(got.has(k))return;got.add(k);b.classList.add('got');Sound.play('coin');$(`.pill[data-k="${k}"]`,el).classList.add('ok');setInstr(got.size<4?`${o.n} 발견!`:'창밖 구경 완료!',`${got.size} / 4`);
       setTimeout(()=>b.remove(),500);cur=null;pause=.8;if(got.size===4)setTimeout(()=>{if(alive)finish('window','창밖 구경 완료!',['자동차'])},700)};
     if(document.activeElement===document.body||document.activeElement.classList.contains('obj'))b.focus({preventScroll:true})};
